@@ -1,7 +1,16 @@
 const routes = (app) => {
   app
     .route("/contact")
-    .get((req, res) => res.send("GET request successful"))
+    .get(
+      (req, res, next) => {
+        console.log(`@123 Request from : ${req.originalUrl}`);
+        console.log(`@123 Request from : ${req.method}`);
+        next();
+      },
+      (req, res, next) => {
+        res.send("GET request successful");
+      }
+    )
     .post((req, res) => res.send("POST request successful"));
 
   app
@@ -9,6 +18,5 @@ const routes = (app) => {
     .put((req, res) => res.send("PUT request successful"))
     .delete((req, res) => res.send("DELETE request successful"));
 };
-
 
 export default routes;
